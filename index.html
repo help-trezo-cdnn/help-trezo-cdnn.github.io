@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSolutions - Green Energy Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            transition: background-color 0.4s ease, color 0.3s ease;
+        }
+        
+        /* Light theme (default) */
+        body {
+            --bg-color: #f9f9f9;
+            --text-color: #2c3e50;
+            --subtext-color: #7f8c8d;
+            --nav-bg: linear-gradient(135deg, #2ecc71, #27ae60);
+            --btn-primary: #27ae60;
+            --btn-primary-hover: #219653;
+            --btn-secondary-bg: white;
+            --btn-secondary-text: #27ae60;
+            --btn-secondary-hover: #f1f1f1;
+            --section-bg: #ffffff;
+            --card-bg: #f5f5f5;
+            
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Dark theme */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #f5f5f5;
+            --subtext-color: #b0b0b0;
+            --nav-bg: linear-gradient(135deg, #285c3f, #114427);
+            --btn-primary: #34a853;
+            --btn-primary-hover: #2d9146;
+            --btn-secondary-bg: #333;
+            --btn-secondary-text: #34a853;
+            --btn-secondary-hover: #444;
+            --section-bg: #1e1e1e;
+            --card-bg: #2a2a2a;
+        }
+        
+        /* Navbar styles */
+        nav {
+            background: var(--nav-bg);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 1rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Premium Theme Toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            position: absolute;
+        }
+        
+        /* Sun icon (light mode) */
+        .theme-toggle .sun {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        .dark-mode .theme-toggle .sun {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+        
+        /* Moon icon (dark mode) */
+        .theme-toggle .moon {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+        
+        .dark-mode .theme-toggle .moon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        /* Hero section styles */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/h1s3tKqF/wallet.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+        
+        /* Content sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: var(--text-color);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--subtext-color);
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+        }
+        
+        /* About section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Services section */
+        .services {
+            background-color: var(--section-bg);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--btn-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Contact section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--section-bg);
+            color: var(--text-color);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+        }
+        
+        /* Button styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: var(--btn-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--btn-primary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--btn-secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--nav-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <!-- Sun Icon -->
+            <svg class="sun" viewBox="0 0 24 24">
+                <path d="M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S14.76,7,12,7z M12,15c-1.65,0-3-1.35-3-3s1.35-3,3-3s3,1.35,3,3 S13.65,15,12,15z M12,2L11,2l0,3l1,0L12,2z M12,19l-1,0l0,3l1,0L12,19z M22,11l-3,0l0,1l3,0L22,11z M5,11L2,11l0,1l3,0L5,11z M19.07,4.93 l-2.12,2.12l0.71,0.71l2.12-2.12L19.07,4.93z M6.34,17.66l-2.12,2.12l0.71,0.71l2.12-2.12L6.34,17.66z M17.66,6.34l2.12-2.12 l0.71,0.71l-2.12,2.12L17.66,6.34z M4.93,19.07l2.12-2.12l0.71,0.71l-2.12,2.12L4.93,19.07z"/>
+            </svg>
+            <!-- Moon Icon -->
+            <svg class="moon" viewBox="0 0 24 24">
+                <path d="M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36c-0.98,1.37-2.58,2.26-4.4,2.26 c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>
+            </svg>
+        </button>
+    </nav>
+    
+    <section class="hero">
+        <h1>Trézoŕ.io/Start® | Bitcoin™ & Crypto® Security™</h1>
+        <p>Trézoŕ Suite is the app made for your Trézoŕ hardware wallet. Manage, buy, sell, swap, stake, and secure your crypto assets with advanced features and protection.</p>
+        <div class="button-container">
+            <a href="#services" class="btn btn-primary">Download New Trézoŕ</a>
+            <a href="#contact" class="btn btn-secondary">Connect with Trézoŕ Suite</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">Does Trézoŕ.io/start v25.2.2 Support All Trézoŕ Models (Trézoŕ One, Trézoŕ Model T)?</h2>
+            <p class="section-subtitle">As cryptocurrency usage continues to grow, securing your assets has never been more important. Trézoŕ, one of the most trusted hardware wallet brands, has continually evolved to meet the needs of its users. A recent update to the Trézoŕ software, specifically Trézoŕ.io/start v25.2.2, has raised a question among crypto enthusiasts: Does this update support all Trézoŕ models, including the Trézoŕ One and Trézoŕ Model T? Let’s break down the details to clarify.</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>What is Trézoŕ.io/start v25.2.2?</h3>
+                    <br>
+                    <p>Trézoŕ.io/start is the official starting point for setting up and managing your Trézoŕ hardware wallet. It&rsquo;s the platform that connects the Trézoŕ hardware device with your computer and allows you to interact with your cryptocurrency holdings safely. The v25.2.2 update is the latest software release, which includes essential updates and bug fixes to improve the wallet&rsquo;s overall functionality.</p>
+                    <br>
+                    <h3>Support for Trézoŕ Models</h3>
+                    <br>
+                    <p>Both the Trézoŕ One and Trézoŕ Model T are supported by the Trézoŕ.io/start platform. However, there are some key distinctions when it comes to the features and capabilities of each model.</p>
+                    <br>
+                    <p><strong>Trézoŕ One:</strong> As the original model, the Trézoŕ One offers a robust solution for securing your cryptocurrency. However, it has limited features compared to the newer Model T. The device supports over 1,000 cryptocurrencies, including Bitcoin, Ethereum, and various altcoins, and works seamlessly with Trézoŕ.io/start v25.2.2.</p>
+                    <br>
+                    <p><strong>Trézoŕ Model T:</strong> This newer model comes with a touchscreen, higher security features, and better support for advanced cryptocurrency management. It also supports all the features of the Trézoŕ One and more, such as Shamir Backup (a feature for advanced seed phrase protection) and a more user-friendly interface for managing crypto assets. Trézoŕ Model T is fully compatible with Trézoŕ.io/start v25.2.2, and the update takes full advantage of the device&rsquo;s superior capabilities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <h2 class="section-title">Features of the Trézoŕ.io/start v25.2.2 Update</h2>
+            <p class="section-subtitle">The v25.2.2 update introduces several new features and improvements that benefit both Trézoŕ One and Model T users. Some of these improvements include:</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🕷️</div>
+                    <h3>Bug Fixes</h3>
+                    <p>Common bugs that affected the connection and user experience have been resolved, ensuring a smoother and more reliable setup and management process for all users.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Improved Security</h3>
+                    <p>This update includes patches for potential vulnerabilities, further enhancing the overall security of your cryptocurrency assets.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Better Compatibility</h3>
+                    <p>The update expands support for a broader range of cryptocurrencies, ensuring that users can manage their portfolios more efficiently.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🙍‍♂️</div>
+                    <h3>User Interface Enhancements</h3>
+                    <p>Both Trézoŕ One and Model T benefit from interface improvements, making it easier for users to navigate and interact with their devices.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3>Secure Wallet Setup</h3>
+                    <p>Trézoŕ.io/start provides a guided, secure process to initialize and configure your Trézoŕ hardware wallet, ensuring safe cryptocurrency storage from the very beginning.  </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Device Compatibility</h3>
+                    <p>It supports both Trézoŕ One and Model T, offering seamless firmware updates, coin management, and enhanced security features for optimal user experience across different hardware wallet models.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Careers</a>
+            <a href="#">Blog</a>
+        </div>
+        <p>&copy; 2025 Trézoŕ.io/start™. All rights reserved™.</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save preference
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
